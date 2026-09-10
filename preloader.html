@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Загрузка AXL</title>
+    <style>
+        /* ===== БАЗОВЫЙ СБРОС ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0A0A0B;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+            margin: 0;
+        }
+
+        /* ===== ПРЕЛОАДЕР ===== */
+        .preloader-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            padding: 20px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.96); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .preloader-logo {
+            width: 160px;
+            height: 160px;
+            position: relative;
+        }
+
+        .preloader-logo svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Анимация сборки: каждая часть появляется с масштабом и вращением */
+        .part {
+            opacity: 0;
+            transform: scale(0.5) rotate(-10deg) translateY(12px);
+            animation: assemble 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .part:nth-child(1) { animation-delay: 0.05s; }
+        .part:nth-child(2) { animation-delay: 0.15s; }
+        .part:nth-child(3) { animation-delay: 0.25s; }
+        .part:nth-child(4) { animation-delay: 0.35s; }
+        .part:nth-child(5) { animation-delay: 0.45s; }
+        .part:nth-child(6) { animation-delay: 0.55s; }
+        .part:nth-child(7) { animation-delay: 0.65s; }
+
+        @keyframes assemble {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg) translateY(16px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg) translateY(0);
+            }
+        }
+
+        /* Лёгкий пульс после сборки */
+        .preloader-logo.pulse svg {
+            animation: logoPulse 1.8s ease-in-out 0.4s infinite alternate;
+        }
+        @keyframes logoPulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(232,141,77,0.08)); }
+            100% { transform: scale(1.04); filter: drop-shadow(0 0 22px rgba(232,141,77,0.2)); }
+        }
+
+        .preloader-text {
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
+            opacity: 0;
+            animation: fadeText 0.7s ease 0.9s forwards;
+        }
+        @keyframes fadeText {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 0.75; transform: translateY(0); }
+        }
+
+        .preloader-progress {
+            width: 120px;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeText 0.6s ease 1.2s forwards;
+        }
+        .preloader-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #E88D4D, #f0a06a);
+            border-radius: 4px;
+            animation: progressFill 2.2s ease 1.2s forwards;
+        }
+        @keyframes progressFill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 480px) {
+            .preloader-logo { width: 120px; height: 120px; }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="preloader-wrapper">
+        <!-- Логотип с анимацией сборки -->
+        <div class="preloader-logo pulse" id="logoContainer">
+            <svg viewBox="0 0 553 589" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="g1" x1="125.931" y1="280.802" x2="553.18" y2="0.273686" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#D3D3D3"/>
+                    </linearGradient>
+                    <linearGradient id="g2" x1="125.931" y1="309.567" x2="551.919" y2="590.639" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#D3D3D3"/>
+                        <stop offset="1" stop-color="#0A0A0B"/>
+                    </linearGradient>
+                    <linearGradient id="g3" x1="125.931" y1="309.567" x2="551.919" y2="590.639" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#D3D3D3"/>
+                        <stop offset="1" stop-color="#0A0A0B"/>
+                    </linearGradient>
+                    <linearGradient id="g4" x1="125.931" y1="309.567" x2="551.919" y2="590.639" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#D3D3D3"/>
+                        <stop offset="1" stop-color="#0A0A0B"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Часть 1: левый верхний треугольник -->
+                <g class="part">
+                    <path d="M231.914 280.802L0 0C85.7963 68.876 241.928 202.566 250.361 228.704C258.795 254.841 247.433 277.859 231.914 280.802Z" fill="url(#g1)"/>
+                </g>
+                <!-- Часть 2: правый верхний (светлый) -->
+                <g class="part">
+                    <path d="M321.086 280.802L553 0C467.204 68.876 311.072 202.566 302.639 228.704C294.205 254.841 305.567 277.859 321.086 280.802Z" fill="#D3D3D3"/>
+                </g>
+                <!-- Часть 3: правый верхний (градиент) -->
+                <g class="part">
+                    <path d="M321.086 280.802L553 0C467.204 68.876 311.072 202.566 302.639 228.704C294.205 254.841 305.567 277.859 321.086 280.802Z" fill="url(#g2)"/>
+                </g>
+                <!-- Часть 4: правый нижний -->
+                <g class="part">
+                    <path d="M321.086 309.567L553 589C467.204 520.46 311.072 387.422 302.639 361.412C294.205 335.402 305.567 312.496 321.086 309.567Z" fill="#D3D3D3"/>
+                </g>
+                <!-- Часть 5: правый нижний (градиент) -->
+                <g class="part">
+                    <path d="M321.086 309.567L553 589C467.204 520.46 311.072 387.422 302.639 361.412C294.205 335.402 305.567 312.496 321.086 309.567Z" fill="url(#g3)"/>
+                </g>
+                <!-- Часть 6: левый нижний -->
+                <g class="part">
+                    <path d="M231.914 309.567L0 589C85.7963 520.46 241.928 387.422 250.361 361.412C258.795 335.402 247.433 312.496 231.914 309.567Z" fill="#D3D3D3"/>
+                </g>
+                <!-- Часть 7: левый нижний (градиент) -->
+                <g class="part">
+                    <path d="M231.914 309.567L0 589C85.7963 520.46 241.928 387.422 250.361 361.412C258.795 335.402 247.433 312.496 231.914 309.567Z" fill="url(#g4)"/>
+                </g>
+            </svg>
+        </div>
+
+        <div class="preloader-text">ЗАГРУЗКА</div>
+        <div class="preloader-progress">
+            <div class="preloader-progress-bar"></div>
+        </div>
+    </div>
+    <script src="js/preloader.js"></script>
+</body>
+</html>
